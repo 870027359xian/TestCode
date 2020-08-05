@@ -1,0 +1,167 @@
+git相关的操作笔记：
+
+关于git的配置有三个部分，一个是system级别  一个是global级别，一个是local级别
+local级别 > glocal级别 > system级别
+如果是在前面一个优先级找到对应的配置内容，则不会再在其他级别上找对应的配置
+git config --global --list
+git config --list
+git config --local --list
+cat ~/.gitconfig  global对应的配置文件
+cat .gitconfig  local对应的配置文件
+
+
+
+
+git clone clone对应的远程仓库中的内容到本地，然后再ps到远程仓库
+
+默认是clone远程仓库中的master分支
+如果需要clone 对应的分支，则git clone -b dev https://……
+
+
+
+git tag 打git的标签 v.2.5.13 这个就是tag标签
+
+git tag打标签 
+git tag -a v0.1 -m "v0.1" 给项目打一个标签
+然后需要推送到远程仓库
+git ps --tag 运行之后会打到分支对应的远程仓库
+一般一个版本迭代结束的时候，会使用git tag 打标签
+
+
+git log --pretty==oneline  显示我们当前提交了多少次，会显示出对应的40个字符组成的标识符
+git tag -a v0.04 a342244o87676890  -m ‘0.04’
+git push --tag 
+
+
+文件状态：已追踪文件  未追踪文件  修改的文件  暂存区的文件
+
+新增一个文件  git add . 使用git status 查询到当前文件是已经修改的文件
+git status
+git commit -m ‘22222’
+git ps 
+
+
+git diff 用于查看所有文件修改的具体的内容
+git diff 
+git add 之后就看不到了，提交到暂存区的内容 git diff 就看不到了
+git diff --staged 查看提交到暂存区的文件的修改   git diff 这个仅仅是对没有提交到暂存区的修改的查看
+注意这两个区别
+
+
+git commit -m '2222'
+feat fix style refactor chore 
+
+type（scope）：subject
+
+fix（rrm）:修改一个BUG。
+
+git commit -m 'fix(rrm):修改了一个BUG'
+
+git reset --hard 2233sadsfsd 回退之前提交的内容
+
+git reset --abort 如果这个reset没有推送到远程的话，还可以取消掉，就是带abort参数。
+
+
+git push origin master --force  这里为什么要用force？执行完reset之后，后面推送要force  
+
+git add -A  和 git add .都可以
+
+
+git branch 分支管理
+git branch dex      分支创建
+git checkout dex    切换到dex 这个分支
+git checkout -b dex  创建并且切换到这个分支上去
+git branch -d dex 删除掉这个分支，没有用的分支要及时清除
+
+分支的merge,首先是切换到目标分支，然后在目标分支下执行merge命令，
+此时就会把源分支的代码merge到目标分支的本地仓库了，然后再执行一把push命令，就可以把本地目标分支的内容提交到远程仓库了。
+git checkout matser 
+git merge self    //merge的时候如果此时有冲突就会提示冲突，此时看一下master分支，修改一下当前分支的这个文件，执行add commit 之后，再提交master就可以了。
+git ps origin master 
+
+
+冲突解决：
+把冲突的点修改完成之后，再通过add commit解决就可以了。
+
+
+git 远程仓库：
+之前一直都是本地仓库，现在看远程仓库
+git fetch 
+git pull 
+
+git push origin master 之前最好先进行一下git pull 操作
+git pull origin master。
+
+
+首先做本地的分支进行回退，git reset --hard asdasdaqd223r2
+git fetch origin master  fetch不会对本地仓库进行更新，如果想讲远程仓库更新到本地，git merge master
+
+
+git push 远程推送
+git push origin dex 把本地的修改推送到远程仓库
+git push -d 删除远程分支 
+git push origin -d dex 
+
+之前做的是在本地建一个分支，然后把本地分支的内容推送到远程的master 仓库中去，没有在远程中创建远程dex仓库，
+其实也是可以在远程创建远程的dex分支，后面用完之后进行删除即可。
+
+git remote -v  提示远程仓库的远程信息。
+
+git remote add origin2 Http:// 创建了新的master 分支
+
+
+git rebase 和git merge 的区别
+
+git merge 操作：  
+在test 分支进行操作：
+git fetch origin dev 
+git merge dev 
+git ps origin test 
+merge 操作执行完成之后，会生成一个新的节点，整个记录就是全部都记录下来，原来的分支的提交记录是会保留的。
+
+冲突解决：
+
+
+
+git rebase 操作：
+在test分支进行操作：
+git fetch origin dev 
+git rebase dev 
+git ps origin test --force
+
+冲突解决：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
